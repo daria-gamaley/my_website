@@ -1,4 +1,4 @@
-baseURL: https://daria-website.netlify.app/
+baseURL: http://example.org/
 languageCode: en-us
 title: My Portfolio
 theme: forty
@@ -14,8 +14,8 @@ params:
   blog: {}
   contact:
     address:
-      - city: London
-        country: United Kingdom 
+      - city: City, ST 00000
+        country: Country
         street: Street
         title: Address
     buttonClear: Clear
