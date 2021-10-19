@@ -10,7 +10,7 @@ params:
     subtitle: |-
       A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
       AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: Hi, my name is Daria
+    title: Hi, my name is Daria. Welcome to my website!
   blog: {}
   contact:
     address:
@@ -21,7 +21,7 @@ params:
     buttonClear: Clear
     buttonSend: Send message
     email:
-      - email: dgamaley.mfa2022@london.edu
+      - email: daria@email.com
         title: Email
     enable: yes
     phone:
@@ -69,11 +69,11 @@ params:
     links:
       - name: Home
         url: '#'
-      - name: Blogs
+      - name: About Me
         url: blogs
-      - name: Generic Blog
+      - name: Portfolio
         url: blogs/ipsum
-      - name: Elements
+      - name: Life at LBS
         url: elements.html
     menu: Menu
     subtitle: By HTML5 Up
