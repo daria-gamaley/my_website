@@ -6,4 +6,4 @@ slug: blogs
 title: Overview
 ---
 
-My blogs about technology and lifestyle.
+Follow my journey around the world.
