@@ -72,7 +72,7 @@ params:
       - name: About Me
         url: blogs
       - name: Portfolio
-        url: blogs/ipsum
+        url: blogs/my-background
       # - name: Elements ## this helps customize 
       #   url: elements.html
     menu: Menu
@@ -84,27 +84,27 @@ params:
       - image: pic01.jpg
         subtitle: Ipsum Dolor Sit Amet
         title: Aliquam
-        url: blogs/aliquam
+        url: blogs/professional
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
         title: Tempus
-        url: blogs/tempus
+        url: blogs/my-portfolio
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Magna
-        url: blogs/magna
+        url: blogs/hobbies
       - image: pic04.jpg
         subtitle: Nisl Sed Aliquam
         title: Ipsum
-        url: blogs/ipsum
+        url: blogs/my-background
       - image: pic05.jpg
         subtitle: Ipsum Dolor Sit Amet
         title: Consequat
-        url: blogs/ipsum
+        url: blogs/my-background
       - image: pic06.jpg
         subtitle: Feugiat Amet Tempus
         title: Etiam
-        url: blogs/ipsum
+        url: blogs/my-background
   two:
     buttonText: Get Started
     enable: yes
