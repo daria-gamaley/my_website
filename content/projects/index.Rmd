@@ -4,4 +4,234 @@ author: "Daria Gamaley"
 date: "19/10/2021"
 output: html_document
 ---
- Hello world, what is going on 
+
+
+```{r load-libraries, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(tidyr)
+library(janitor)
+library(stringr)
+```
+
+
+
+
+
+
+```{r read_GDP_data, message = FALSE, error = FALSE}
+
+UN_GDP_data  <-  read_excel(here::here("data", "Download-GDPconstant-USD-countries.xls"), 
+                sheet="Download-GDPconstant-USD-countr", # Sheet name
+                skip=2) # Number of rows to skip
+
+skim(UN_GDP_data)
+
+```
+
+ The first thing you need to do is to tidy the data, as it is in wide format and you must make it into long, tidy format. Please express all figures in billions (divide values by `1e9`, or $10^9$), and you want to rename the indicators into something shorter.
+
+
+```{r reshape_GDP_data,message = FALSE, error = FALSE}
+
+#Change the code to longer
+tidy_GDP_data  <-  UN_GDP_data %>% 
+  pivot_longer(cols=-c(CountryID, Country, IndicatorName), names_to = 'year', values_to = 'GDP') %>% 
+  
+#Change the code to required format  
+  mutate(GDP = GDP/1e9) %>% 
+  pivot_wider(names_from = IndicatorName, values_from ="GDP") %>% 
+  
+#rename Indicator names to shorter names  
+  rename('FinConExp' = 'Final consumption expenditure', 
+         "Household_Expenditure" = "Household consumption expenditure (including Non-profit institutions serving households)", 
+         "Government_Expenditure" = "General government final consumption expenditure", 
+         "Gross_capital_formation" = "Gross capital formation", 
+         "Gross_fixed_capital_formation" = 'Gross fixed capital formation (including Acquisitions less disposals of valuables)', 
+         "Exports" = "Exports of goods and services",
+         "Imports" = "Imports of goods and services",  
+         "GDP" = "Gross Domestic Product (GDP)", 
+         "AgricultureEtc" = "Agriculture, hunting, forestry, fishing (ISIC A-B)", 
+         "MiningEtc" = "Mining, Manufacturing, Utilities (ISIC C-E)", 
+         "Manufacturing" = 'Manufacturing (ISIC D)',        
+         "Construction" = "Construction (ISIC F)", 
+         "Wholesale, Retail, Restaurants" = 'Wholesale, retail trade, restaurants and hotels (ISIC G-H)', 
+         "Transport, Communication" = 'Transport, storage and communication (ISIC I)', 
+         "Other" = 'Other Activities (ISIC J-P)',
+         "Total_Value" = "Total Value Added", 
+         "InventoryChange" = 'Changes in inventories'
+
+  )
+
+```
+
+First, can you produce this plot?
+
+```{r gdp1, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "gdp1.png"), error = FALSE)
+```
+
+
+```{r country_plot,message = FALSE, error = FALSE,fig.width= 10, fig.height= 6}
+#Create a specific data table
+country_list <- tidy_GDP_data %>% 
+  filter(Country == 'India' | Country == "United States" | Country == "Germany" ) %>% 
+  select(contains ("Country"), 
+         contains("year"), 
+         contains("Gross_capital_formation"), 
+         contains("Exports"), 
+         contains("Government_Expenditure"), 
+         contains("Imports"), 
+         contains("Household_Expenditure"), 
+         contains("GDP"))
+
+glimpse(country_list)
+ 
+#plotting the table 
+ggplot(country_list, aes(x = as.double(year))) +
+  
+#Adding the lines  
+  geom_line(aes(y = Gross_capital_formation, 
+            color = '#f88f88'), 
+            size=1) +
+  
+  geom_line(aes(y = Exports, 
+            color = '#b1b327'), 
+            size=1) +
+  geom_line(aes(y = Government_Expenditure,
+            color = '#13c487'), 
+            size=1) +
+  geom_line(aes(y=Imports, 
+            color = "#eb86f5"), 
+            size = 1)+
+  geom_line(aes(y=Household_Expenditure,
+            color = "#17b6f6"), 
+            size = 1) +
+  
+#Adjusting the legend
+  scale_color_identity(name = "Components of GDP",
+                       labels = c( "Goverment Expenditure",
+                                   "Household Expenditure",
+                                   "Exports",
+                                   "Imports",
+                                   "Gross Capital Formation"),
+                       guide = "legend")+
+  
+  #Sorting by country
+  facet_wrap(~Country) +
+  
+  #Adding theme
+  theme_bw() +
+  
+  #Adjusting plot aspect ratio 
+  theme(aspect.ratio=20/9) +
+  
+  #Making scale continous and removing expansion
+  scale_x_continuous(limits = c(1970,2017), expand = c(0, 0)) +
+  
+  #Adding plot information
+   labs(x = "", y="Billion USD$", 
+       title = "GDP components over time", 
+       subtitle="In constant 2010 USD",color = "Legend")
+
+```
+
+
+Secondly, recall that GDP is the sum of Household Expenditure (Consumption *C*), Gross Capital Formation (business investment *I*), Government Expenditure (G) and Net Exports (exports - imports). Even though there is an indicator `Gross Domestic Product (GDP)` in your dataframe, I would like you to calculate it given its components discussed above.
+
+> What is the % difference between what you calculated as GDP and the GDP figure included in the dataframe?
+
+
+```{r percentage_diff, message = FALSE, error = FALSE}
+
+# Caculating the new GDP and then percentages 
+new_country_list <- country_list %>% 
+  mutate((GDP_CIGNE = Government_Expenditure + 
+                      Household_Expenditure + Gross_capital_formation + Exports - Imports),
+          GDP_diff = ((GDP_CIGNE-GDP)/GDP)*100,
+          Gov_perc = (Government_Expenditure/GDP_CIGNE),
+          Hos_perc = (Household_Expenditure/GDP_CIGNE),
+          GCF_perc = (Gross_capital_formation/GDP_CIGNE),
+          NE_perc = ((Exports - Imports)/GDP_CIGNE))
+
+
+GDP_perc_table <- new_country_list %>% 
+  select(contains ("Country"),
+         contains("year"),
+         contains ("GDP"),
+         contains ("GDP_CIGNE"),
+         contains("GDP_diff"))
+
+glimpse(GDP_perc_table)
+
+```
+
+```{r gdp2, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "gdp2.png"), error = FALSE)
+```
+
+```{r plot_2, message = FALSE, error = FALSE,fig.width= 10, fig.height= 6}
+
+#plotting the table 
+ggplot(new_country_list, aes(x = as.double(year))) +
+  
+#Plotting the lines  
+  
+  geom_line(aes(y = Gov_perc, 
+            col = '#f88f88'), 
+            size=.8, 
+            alpha = 0.7) +
+  
+  geom_line(aes(y = GCF_perc, 
+            col = '#b1b327'),
+            size=.8, 
+            alpha = 0.7) +
+  
+  geom_line(aes(y=NE_perc, 
+            col = "purple"), 
+            size = .8, 
+            alpha = 0.7)+
+  
+  geom_line(aes(y=Hos_perc, 
+            col = "#17b6f6"),
+            size = .8, 
+            alpha = 0.7) +
+  
+#Adjusting the Legend  
+  scale_color_identity(name = NULL,
+                       labels = c("Household Expenditure",
+                                  "Gross Capital Formation",
+                                  "Goverment Expenditure",
+                                  "Net Exports"),
+                       guide = "legend")+
+  
+  #Sorting by country
+  facet_wrap(~Country) +
+  
+  #adding theme
+  theme_bw() +
+  
+  #Adjusting plot aspect ratio 
+  theme(aspect.ratio=20/9) +
+  
+  #Making Scales continous, removing exapnsion, adding percentage
+  scale_x_continuous(limits = c(1970,2017), 
+                     expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))+
+  
+  #adding Plot information
+   labs(x = "", y="proportion", 
+       title = "GDP and its breakdown at constant 2010 prices in US Dollars",
+       caption = "Source: United Nations, https://unstats.un.org/unsd/snaama/Downloads") 
+
+```

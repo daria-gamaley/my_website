@@ -73,8 +73,8 @@ params:
         url: blogs
       - name: Portfolio
         url: blogs/ipsum
-      - name: Life at LBS
-        url: elements.html
+      # - name: Elements ## this helps customize 
+      #   url: elements.html
     menu: Menu
     subtitle: By HTML5 Up
     title: Forty
