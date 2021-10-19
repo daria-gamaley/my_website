@@ -21,7 +21,7 @@ params:
     buttonClear: Clear
     buttonSend: Send message
     email:
-      - email: daria@email.com
+      - email: dgamaley.mfa2022@london.edu
         title: Email
     enable: yes
     phone:
@@ -57,7 +57,7 @@ params:
       - icon: fa-linkedin
         label: LinkedIn
         url: https://www.linkedin.com/in/daria-gamaley/
-  image: ''
+  image: london-business-school.jpeg
   name: Your name
   navigation:
     button1:
@@ -89,7 +89,7 @@ params:
         subtitle: A sneak-peak of data analysis
         title: My Portfolio
         url: blogs/my-portfolio
-      - image: pic03.jpg
+      - image: Zermatt.png
         subtitle: A glimpse in my kaleidoscope of thoughs
         title: My Hobbies
         url: blogs/hobbies
@@ -108,6 +108,6 @@ params:
   two:
     buttonText: Get Started
     enable: yes
-    subtitle: "The 'Six Degrees of Separation' theory states that all people on this globe are six or fewer social connections away from each other. Let's connect and find out how we're connected!"
-    title: Massa libero
+    subtitle: "The 'Six Degrees of Separation' theory states that all people on this globe are six or fewer social connections away from each other. Let's find out how we're connected!"
+    title: Let's Connect!
     url: blogs
