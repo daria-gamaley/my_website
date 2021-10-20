@@ -42,15 +42,15 @@ params:
         text: ' ' 
         url: https://www.london.edu/about/contact
     social:
-      - icon: fa-twitter
-        label: Twitter
-        url: https://www.twitter.com
-      - icon: fa-facebook
-        label: Facebook
-        url: https://www.facebook.com
-      - icon: fa-instagram
-        label: Instagram
-        url: https://www.instagram.com
+      # - icon: fa-twitter
+      #   label: Twitter
+      #   url: https://www.twitter.com
+      # - icon: fa-facebook
+      #   label: Facebook
+      #   url: https://www.facebook.com
+      # - icon: fa-instagram
+      #   label: Instagram
+      #   url: https://www.instagram.com
       - icon: fa-github
         label: GitHub
         url: https://github.com/daria-gamaley
@@ -72,7 +72,7 @@ params:
       - name: About Me
         url: blogs
       - name: Portfolio
-        url: blogs/my-background
+        url: blogs/my-portfolio
       # - name: Elements ## this helps customize 
       #   url: elements.html
     menu: Menu

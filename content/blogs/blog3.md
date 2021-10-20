@@ -3,7 +3,7 @@ categories:
 - ""
 - ""
 date: "2017-10-31T22:26:13-05:00"
-description: "From sports to musical theory, I've been done it all. My weeks were always overfilled with extracurricular: studying piano, vocals, and french, along with playing as playing volleyball and badminton. I am also an avid traveler and love to learn about different cultures, languages, and traditions."
+description: "From sports to musical theory, I've been done it all. My weeks were always overfilled with extracurriculars: studying piano, vocals, and French, along with playing volleyball and badminton. I am also an avid traveler and love to learn about different cultures, languages, and traditions."
 draft: false
 image: utrecht.jpeg
 keywords: ""
