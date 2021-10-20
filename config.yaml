@@ -23,7 +23,7 @@ params:
     email:
       - email: dgamaley.mfa2022@london.edu
         title: Email
-    enable: yes
+    # enable: yes
     phone:
       - phone: (020) 7000-7000 
         title: Phone
@@ -35,7 +35,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Daria Gamaley
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -58,7 +58,7 @@ params:
         label: LinkedIn
         url: https://www.linkedin.com/in/daria-gamaley/
   image: london-business-school.jpeg
-  name: Your name
+  name: Daria
   navigation:
     button1:
       - name: Get Started
