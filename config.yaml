@@ -38,9 +38,9 @@ params:
     copyright: Daria Gamaley
     enable: yes
     quicklinks:
-      - alt: HTML5 UP
-        text: 'Design: '
-        url: https://www.html5up.net
+      - alt: London Business School
+        text: ' ' 
+        url: https://www.london.edu/about/contact
     social:
       - icon: fa-twitter
         label: Twitter
